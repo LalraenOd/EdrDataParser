@@ -2,6 +2,7 @@
 {
     class Organisation
     {
+
         public Organisation(string edrpouCode, string officialName, string address, string mainPerson, string occupation, string status)
         {
             EdrpouCode = edrpouCode;

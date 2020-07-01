@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EdrDataParserClass.cs" />
+    <Compile Include="EdrDataParser.cs" />
     <Compile Include="Organisation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
