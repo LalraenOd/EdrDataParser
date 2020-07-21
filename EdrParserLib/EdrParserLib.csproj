@@ -42,8 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EdrDataParser.cs" />
-    <Compile Include="Organisation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Organisation\Organisation.csproj">
+      <Project>{272cadaf-c52e-434b-8e8e-9c6fbb208817}</Project>
+      <Name>Organisation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
