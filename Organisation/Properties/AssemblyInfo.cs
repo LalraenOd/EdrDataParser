@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EdrDataParser")]
+[assembly: AssemblyTitle("Organisation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EdrDataParser")]
+[assembly: AssemblyProduct("Organisation")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5cd2937d-0e2d-4408-90d9-c6bf13aa6a95")]
+[assembly: Guid("3463a4c6-43c9-42ed-b9e6-0e0624b6c39a")]
 
 // Version information for an assembly consists of the following four values:
 //
