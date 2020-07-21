@@ -1,8 +1,7 @@
 ﻿namespace EdrDataParser
 {
-    class Organisation
+    public class Organisation
     {
-
         public Organisation(string edrpouCode, string officialName, string address, string mainPerson, string occupation, string status)
         {
             EdrpouCode = edrpouCode;
@@ -20,7 +19,12 @@
         private string Status { get; set; }
         public override string ToString()
         {
-            return base.ToString();
+            return "EdrpouCode: " + EdrpouCode +
+                "\nOfficialName" + OfficialName +
+                "\nAddress" + Address +
+                "\nMainPerson" + MainPerson +
+                "\nOccupation" + Occupation +
+                "\nStatus" + Status; 
         }
     }
 }

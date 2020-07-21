@@ -10,20 +10,18 @@ namespace EdrDataParser
         /// <summary>
         /// Gets data from open API edr.data-gov-ua.org/api
         /// </summary>
-        /// <param name="listEdrpou">Input list of EDRPOU codes to get info about</param>
+        /// <param name="edrpouList">Input list of EDRPOU codes to get info about</param>
         /// <returns>List of strings with basic info like: FullName, Occupation and Status.</returns>
-        public static List<string> EdrpouDetailParser(List<string> listEdrpou)
+        public static List<Organisation> EdrpouDetailParser(List<string> edrpouList)
         {
-            List<string> resultList = new List<string>();
-
-            List<Organisation> organisations = new List<Organisation>();
+            List<Organisation> resultOrganisations = new List<Organisation>();
 
             using (WebClient client = new WebClient())
             {
                 client.Encoding = Encoding.UTF8;
-                for (int listItemCount = 0; listItemCount < listEdrpou.Count - 1; listItemCount++)
+                for (int listItemCount = 0; listItemCount < edrpouList.Count - 1; listItemCount++)
                 {
-                    string edrpou = listEdrpou[listItemCount];
+                    string edrpou = edrpouList[listItemCount];
                     string linkEdrpou = "http://edr.data-gov-ua.org/api/companies?where={\"edrpou\":{\"contains\":\"" + edrpou + "\"}}";
                     string pageEdrpou = client.DownloadString(linkEdrpou);
 
@@ -40,45 +38,20 @@ namespace EdrDataParser
                     string mainPerson = matchInfo.Groups["mainPerson"].Value.ToString();
                     string occupation = matchInfo.Groups["occupation"].Value.ToString();
                     string status = matchInfo.Groups["status"].Value.ToString();
-
-                    //Regex regexOfName = new Regex("\"officialName\":(?<result>.+)\",\"address");
-                    //Regex regexAddress = new Regex("\"address\":(?<result>.+)\",\"mainPerson");
-                    //Regex regexMainPerson = new Regex("\"mainPerson\":(?<result>.+)\",\"occupation");
-                    //Regex regexOccupation = new Regex("\"occupation\":\"(?<result>.+)\",\"status");
-                    //Regex regexStatus = new Regex("\"status\":\"(?<result>.+)\",\"id");
-                    //Match matchName = regexOfName.Match(pageEdrpou);
-                    //Match matchAddress = regexAddress.Match(pageEdrpou);
-                    //Match matchMainPerson = regexMainPerson.Match(pageEdrpou);
-                    //Match matchOcc = regexOccupation.Match(pageEdrpou);
-                    //Match matchStatus = regexStatus.Match(pageEdrpou);
-                    //string ofName = matchName.Groups[1].Value.ToString();
-                    //string address = matchAddress.Groups[1].Value.ToString();
-                    //string mainPerson = matchMainPerson.Groups[1].Value.ToString();
-                    //string occupation = matchOcc.Groups[1].Value.ToString();
-                    //string status = matchStatus.Groups[1].Value.ToString();
-
-                    organisations.Add(new Organisation(edrpou, ofName, address, mainPerson, occupation, status));
-
-                    string result =
-                        (listItemCount + 1) + "\t" +
-                        edrpou + "\t" +
-                        ofName + "\t" +
-                        occupation + "\t" +
-                        status;
-                    resultList.Add(result);
+                    resultOrganisations.Add(new Organisation(edrpou, ofName, address, mainPerson, occupation, status));
                 }
-                return resultList;
+                return resultOrganisations;
             }
         }
-
+        
         /// <summary>
         /// Gets data from open API edr.data-gov-ua.org/api
         /// </summary>
         /// <param name="edrpou">Input EDRPOU code to get info about</param>
         /// <returns>String with basic info like: FullName, Occupation and Status.</returns>
-        public static string EdrpouDetailParser(string edrpou)
+        public static Organisation EdrpouDetailParser(string edrpou)
         {
-            string result;
+            Organisation resultOrganisation;
             using (WebClient client = new WebClient())
             {
                 client.Encoding = Encoding.UTF8;
@@ -98,14 +71,30 @@ namespace EdrDataParser
                 string mainPerson = matchInfo.Groups["mainPerson"].Value.ToString();
                 string occupation = matchInfo.Groups["occupation"].Value.ToString();
                 string status = matchInfo.Groups["status"].Value.ToString();
-                result =
-                        edrpou + "\t" +
-                        ofName + "\t" +
-                        occupation + "\t" +
-                        status;
+                resultOrganisation = new Organisation(edrpou, ofName, address, mainPerson, occupation, status);
             }
-            return result;
+            return resultOrganisation;
+        }
+        
+        /// <summary>
+        /// Gets data about FOP from youcontrol. Be carefull. NOT SO FAST. DO SLEEP
+        /// </summary>
+        /// <param name="code">INN code</param>
+        /// <returns>Organisation</returns>
+        public static Organisation FopDataParser(string code)
+        {
+            Organisation resultOrganisation;
+            string link = "https://youcontrol.com.ua/search/?country=1&q=" + code;
+            using (WebClient client = new WebClient())
+            {
+                client.Encoding = Encoding.UTF8;
+                string page = client.DownloadString(link);
+                Regex regex = new Regex(" <meta name=\"description\" content=\"➤➤ (?<result>.+) Повне досьє на");
+                Match match = regex.Match(page);
+                var ofName = match.Groups["result"].Value.ToString();
+                resultOrganisation = new Organisation(code, ofName, "", "", "", "");
+            }
+            return resultOrganisation;
         }
     }
-
 }
