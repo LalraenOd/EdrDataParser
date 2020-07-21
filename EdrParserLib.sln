@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdrParserLib", "EdrDataParser\EdrParserLib.csproj", "{5CD2937D-0E2D-4408-90D9-C6BF13AA6A95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdrParserLib", "EdrParserLib\EdrParserLib.csproj", "{5CD2937D-0E2D-4408-90D9-C6BF13AA6A95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
